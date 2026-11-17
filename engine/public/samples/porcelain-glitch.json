@@ -1,0 +1,386 @@
+{
+ "format": "shard-document",
+ "version": 1,
+ "name": "Porcelain glitch (ref 02)",
+ "width": 1080,
+ "height": 1920,
+ "seed": 202,
+ "background": {
+  "type": "color",
+  "color": "#5E6266"
+ },
+ "inputs": {
+  "main": {
+   "kind": "live",
+   "label": "Face (webcam or picture)"
+  }
+ },
+ "signals": {
+  "progress": 1
+ },
+ "layers": [
+  {
+   "id": "ground",
+   "name": "Murk ground",
+   "type": "generator",
+   "generator": "murk",
+   "params": {
+    "coverage": 0.42,
+    "scale": 340
+   }
+  },
+  {
+   "id": "face",
+   "name": "Face input",
+   "type": "source",
+   "input": "main",
+   "fit": "cover",
+   "mask": {
+    "shape": "combine",
+    "op": "add",
+    "masks": [
+     {
+      "shape": "ellipse",
+      "cx": 0.5,
+      "cy": 0.4,
+      "rx": 0.36,
+      "ry": 0.26,
+      "torn": 26
+     },
+     {
+      "shape": "rect",
+      "x": 0.04,
+      "y": 0.6,
+      "w": 0.92,
+      "h": 0.4,
+      "torn": 30
+     }
+    ]
+   },
+   "effects": [
+    {
+     "id": "melt",
+     "effect": "liquify",
+     "params": {
+      "amount": {
+       "ramp": [
+        20,
+        110
+       ]
+      },
+      "scale": 260,
+      "swirl": 0.7
+     }
+    },
+    {
+     "id": "glaze",
+     "effect": "glaze",
+     "params": {
+      "levels": 6
+     },
+     "mask": {
+      "shape": "ellipse",
+      "cx": 0.5,
+      "cy": 0.38,
+      "rx": 0.26,
+      "ry": 0.2,
+      "torn": 30
+     }
+    },
+    {
+     "id": "lines",
+     "effect": "contours",
+     "params": {
+      "levels": 7,
+      "width": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "vase",
+   "name": "Porcelain head",
+   "type": "generator",
+   "generator": "porcelain",
+   "blend": "normal",
+   "opacity": {
+    "ramp": [
+     0.35,
+     0.96
+    ]
+   },
+   "params": {
+    "size": 95,
+    "density": 0.8,
+    "bands": 1,
+    "brush": 3.5
+   },
+   "mask": {
+    "shape": "combine",
+    "op": "subtract",
+    "masks": [
+     {
+      "shape": "ellipse",
+      "cx": 0.5,
+      "cy": 0.37,
+      "rx": 0.27,
+      "ry": 0.2,
+      "torn": 34
+     },
+     {
+      "shape": "noise",
+      "scale": 70,
+      "threshold": 0.7,
+      "softness": 0.02
+     }
+    ]
+   },
+   "effects": [
+    {
+     "id": "m",
+     "effect": "liquify",
+     "params": {
+      "amount": 150,
+      "scale": 200,
+      "swirl": 0.8,
+      "steps": 8
+     }
+    },
+    {
+     "id": "c",
+     "effect": "contours",
+     "params": {
+      "levels": 5,
+      "width": 2,
+      "shadowOffset": 3
+     }
+    }
+   ]
+  },
+  {
+   "id": "shirt",
+   "name": "Porcelain shirt",
+   "type": "generator",
+   "generator": "porcelain",
+   "blend": "normal",
+   "opacity": 0.95,
+   "seed": 77,
+   "params": {
+    "size": 80,
+    "density": 0.65,
+    "bands": 0,
+    "scrolls": 0.4,
+    "brush": 3
+   },
+   "mask": {
+    "shape": "combine",
+    "op": "add",
+    "masks": [
+     {
+      "shape": "ellipse",
+      "cx": 0.5,
+      "cy": 0.95,
+      "rx": 0.46,
+      "ry": 0.3,
+      "torn": 40
+     },
+     {
+      "shape": "rect",
+      "x": 0.12,
+      "y": 0.8,
+      "w": 0.76,
+      "h": 0.2,
+      "torn": 30
+     }
+    ]
+   },
+   "effects": [
+    {
+     "id": "m",
+     "effect": "liquify",
+     "params": {
+      "amount": 160,
+      "scale": 240,
+      "swirl": 0.6,
+      "anisotropy": 0.3
+     }
+    },
+    {
+     "id": "c",
+     "effect": "contours",
+     "params": {
+      "levels": 4,
+      "width": 2,
+      "shadowOffset": 2
+     }
+    }
+   ]
+  },
+  {
+   "id": "flow",
+   "name": "Melt everything",
+   "type": "effect",
+   "effects": [
+    {
+     "id": "m",
+     "effect": "liquify",
+     "params": {
+      "amount": 45,
+      "scale": 420,
+      "octaves": 4
+     }
+    }
+   ]
+  },
+  {
+   "id": "terminal",
+   "name": "Terminal in the face",
+   "type": "generator",
+   "generator": "uiChrome",
+   "seed": 9,
+   "params": {
+    "count": 1,
+    "kinds": [
+     "terminal"
+    ],
+    "region": [
+     0.36,
+     0.47,
+     0.02,
+     0.02
+    ],
+    "minWidth": 300,
+    "maxWidth": 310,
+    "tear": 0.4,
+    "cursors": 0,
+    "cascade": 0,
+    "scale": 0.8
+   }
+  },
+  {
+   "id": "shelves",
+   "name": "Window-bar shelves",
+   "type": "effect",
+   "effects": [
+    {
+     "id": "s",
+     "effect": "slices",
+     "params": {
+      "count": 16,
+      "region": [
+       0.52,
+       0.1,
+       0.45,
+       0.32
+      ],
+      "bars": 0.75,
+      "stack": 0.85,
+      "maxShift": 160,
+      "bias": 0.6,
+      "minHeight": 18,
+      "maxHeight": 34
+     }
+    }
+   ]
+  },
+  {
+   "id": "leftslices",
+   "name": "Offset slices",
+   "type": "effect",
+   "effects": [
+    {
+     "id": "s",
+     "effect": "slices",
+     "params": {
+      "count": 9,
+      "region": [
+       0.05,
+       0.12,
+       0.42,
+       0.2
+      ],
+      "bars": 0,
+      "stack": 0.9,
+      "maxShift": 140,
+      "bias": -0.6,
+      "minHeight": 22,
+      "maxHeight": 40
+     }
+    }
+   ]
+  },
+  {
+   "id": "frame",
+   "name": "Thin red frame",
+   "type": "generator",
+   "generator": "solid",
+   "params": {
+    "color": "#E0402A"
+   },
+   "mask": {
+    "shape": "combine",
+    "op": "subtract",
+    "masks": [
+     {
+      "shape": "rect",
+      "x": 0.2,
+      "y": 0.27,
+      "w": 0.6,
+      "h": 0.4
+     },
+     {
+      "shape": "rect",
+      "x": 0.2025,
+      "y": 0.2715,
+      "w": 0.595,
+      "h": 0.397
+     }
+    ]
+   }
+  },
+  {
+   "id": "mosh",
+   "name": "Mosh the edges",
+   "type": "effect",
+   "mask": {
+    "shape": "noise",
+    "scale": 160,
+    "threshold": 0.58,
+    "softness": 0.01
+   },
+   "effects": [
+    {
+     "id": "m",
+     "effect": "mosh",
+     "params": {
+      "block": 20,
+      "probability": 0.35,
+      "reach": 4
+     }
+    }
+   ]
+  },
+  {
+   "id": "grime",
+   "name": "Grime",
+   "type": "effect",
+   "effects": [
+    {
+     "id": "j",
+     "effect": "jpeg",
+     "params": {
+      "quality": 40
+     },
+     "amount": 0.7
+    },
+    {
+     "id": "r",
+     "effect": "rgbSplit",
+     "params": {
+      "dx": 2
+     }
+    }
+   ]
+  }
+ ]
+}

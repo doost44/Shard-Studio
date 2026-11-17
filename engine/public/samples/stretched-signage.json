@@ -1,0 +1,34 @@
+{
+  "format": "shard-document", "version": 1, "name": "Stretched signage (ref 01)",
+  "width": 1080, "height": 1920, "seed": 101,
+  "background": { "type": "color", "color": "#F0F0EC" },
+  "inputs": { "main": { "kind": "live", "label": "Reel or face (optional)" } },
+  "layers": [
+    { "id": "road", "name": "Road plane", "type": "generator", "generator": "roadPaint", "params": { "strokes": 4, "width": 150 },
+      "effects": [ { "id": "p", "effect": "plane", "params": { "quad": [0.05, 0.56, 0.62, 0.5, 1.25, 1.02, -0.35, 1.02], "edge": "cut" } } ] },
+    { "id": "streetL", "name": "Street plane, top left", "type": "generator", "generator": "signage", "seed": 11, "params": { "ground": "street" },
+      "effects": [ { "id": "p", "effect": "plane", "params": { "quad": [-0.02, 0.0, 0.66, 0.06, 0.62, 0.3, -0.02, 0.33], "edge": "cut" } } ],
+      "mask": { "shape": "poly", "points": [0, 0, 0.66, 0, 0.66, 0.3, 0.3, 0.34, 0, 0.34], "torn": 18 } },
+    { "id": "streetR", "name": "Street plane, right", "type": "generator", "generator": "signage", "seed": 22, "params": { "ground": "sky", "density": 0.9 },
+      "effects": [
+        { "id": "p", "effect": "plane", "params": { "quad": [0.36, 0.17, 0.93, 0.14, 0.82, 0.6, 0.42, 0.52], "edge": "cut", "frame": 9 } },
+        { "id": "drag", "effect": "stretch", "params": { "at": 0.53, "angle": 112, "length": 0.42, "spanStart": 0.38, "spanEnd": 0.62, "ragged": 0.55, "band": 3 } } ] },
+    { "id": "reel", "name": "Input on a plane", "type": "source", "input": "main",
+      "effects": [ { "id": "p", "effect": "plane", "params": { "quad": [0.22, 0.2, 0.44, 0.18, 0.46, 0.44, 0.24, 0.47], "edge": "cut", "frame": 5 } } ] },
+    { "id": "farR", "name": "Signboard tower", "type": "generator", "generator": "signage", "seed": 33, "params": { "ground": "paper", "column": 70, "vertical": 0.8 },
+      "effects": [ { "id": "p", "effect": "plane", "params": { "quad": [0.79, 0.15, 1.06, 0.08, 1.06, 0.66, 0.77, 0.6], "edge": "cut", "frame": 7 } } ] },
+    { "id": "barrier", "name": "Barrier", "type": "generator", "generator": "hazard", "params": { "stripe": 26 },
+      "effects": [
+        { "id": "p", "effect": "plane", "params": { "quad": [-0.1, 0.5, 0.55, 0.34, 0.56, 0.4, -0.1, 0.62], "edge": "cut" } },
+        { "id": "drag", "effect": "stretch", "params": { "at": 0.47, "angle": 118, "length": 0.55, "spanStart": 0.0, "spanEnd": 0.62, "ragged": 0.7, "band": 4, "falloff": 0.1 } } ] },
+    { "id": "streaks", "name": "Feed drag", "type": "effect",
+      "effects": [ { "id": "s", "effect": "stretch", "params": { "at": 0.6, "angle": 100, "length": 0.3, "spanStart": 0.5, "spanEnd": 0.75, "ragged": 0.8, "band": 2, "falloff": 0.3 } } ] },
+    { "id": "textTL", "name": "Text bleeding in, top left", "type": "generator", "generator": "textColumn",
+      "params": { "color": "#FFFFFF", "area": [0.0, 0.005, 0.27, 0.23], "size": 30, "bold": true, "font": "Courier Prime", "leading": 1.25 } },
+    { "id": "textR", "name": "Text bleeding in, right", "type": "generator", "generator": "textColumn",
+      "params": { "color": "#06070C", "area": [0.83, 0.46, 0.19, 0.2], "size": 13, "rotation": -4 } },
+    { "id": "textB", "name": "Small print", "type": "generator", "generator": "textColumn",
+      "params": { "color": "#F0F0EC", "area": [0.03, 0.88, 0.32, 0.07], "size": 11, "align": "left" } },
+    { "id": "grime", "name": "Grime", "type": "effect", "effects": [ { "id": "j", "effect": "jpeg", "params": { "quality": 45 }, "amount": 0.5 } ] }
+  ]
+}

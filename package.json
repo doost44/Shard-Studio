@@ -1,0 +1,25 @@
+{
+  "name": "shard-studio",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Shard Studio: a procedural distortion image editor and the look engine for The Reel Life.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "node engine/test/run-golden.mjs",
+    "test:update": "node engine/test/run-golden.mjs --update",
+    "proof": "node engine/test/run-golden.mjs --proof",
+    "bench": "node engine/test/run-golden.mjs --bench"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/pngjs": "^6.0.5",
+    "playwright": "^1.63.0",
+    "pngjs": "^7.0.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}

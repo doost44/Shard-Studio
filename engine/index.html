@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shard engine</title>
+<style>
+  :root { --bg:#14161a; --panel:#1d2026; --line:#30343c; --text:#e6e6e2; --dim:#9aa0a8; --cobalt:#1B2FD6; --safety:#FF6A1A; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:14px/1.4 system-ui, sans-serif; display:grid; grid-template-columns: 300px 1fr; height:100vh; }
+  aside { background:var(--panel); border-right:1px solid var(--line); padding:14px; overflow:auto; }
+  h1 { font-size:15px; margin:0 0 12px; letter-spacing:.02em; }
+  label { display:block; margin:12px 0 4px; color:var(--dim); font-size:12px; }
+  select, input, button, textarea { width:100%; background:#111317; color:var(--text); border:1px solid var(--line); border-radius:4px; padding:6px; font:inherit; }
+  button { cursor:pointer; margin-top:6px; } button:hover { border-color:var(--cobalt); }
+  button.live { border-color:var(--safety); }
+  :focus-visible { outline:2px solid var(--cobalt); outline-offset:1px; }
+  .row { display:flex; gap:6px; } .row > * { flex:1; }
+  main { display:flex; align-items:center; justify-content:center; overflow:hidden; padding:16px; }
+  canvas { max-width:100%; max-height:100%; box-shadow:0 0 0 1px var(--line); }
+  #stats { font:12px/1.5 ui-monospace, monospace; white-space:pre; color:var(--dim); margin-top:12px; }
+  #err { color:var(--safety); white-space:pre-wrap; font-size:12px; }
+  @media (max-width: 700px) { body { grid-template-columns:1fr; grid-template-rows:auto 1fr; height:auto; } }
+</style>
+</head>
+<body>
+<aside>
+  <h1>Shard engine · document renderer</h1>
+  <label for="sample">Document</label>
+  <select id="sample"></select>
+  <label for="file">…or open a .json document</label>
+  <input id="file" type="file" accept=".json,application/json">
+  <label for="input">Input "main"</label>
+  <select id="input">
+    <option value="blank">Blank (nothing)</option><option value="grey">Flat grey</option><option value="gradient">Gradient</option>
+    <option value="face" selected>Synthetic face</option><option value="webcam">Webcam (live)</option><option value="image">Image file…</option>
+  </select>
+  <input id="imgfile" type="file" accept="image/*" hidden>
+  <label for="progress">progress (first reel → full face): <span id="pv"></span></label>
+  <input id="progress" type="range" min="0" max="1" step="0.01" value="1">
+  <label for="seed">Document seed</label>
+  <div class="row"><input id="seed" type="number"><button id="reseed" type="button">Reseed</button></div>
+  <label><input id="animate" type="checkbox" style="width:auto"> Animate (time)</label>
+  <label><input id="profile" type="checkbox" style="width:auto" checked> Per-node timing</label>
+  <button id="png" type="button">Export PNG</button>
+  <div id="err" role="alert"></div>
+  <div id="stats" aria-live="polite"></div>
+</aside>
+<main><canvas id="c" aria-label="Rendered document"></canvas></main>
+<script type="module" src="./demo/main.ts"></script>
+</body>
+</html>
